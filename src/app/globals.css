@@ -1,0 +1,189 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400&family=Inter:wght@300;400;500;600;700&display=swap');
+@import "tailwindcss";
+
+/* ============================================
+   VARIETY VISTA — DARK GOLD DESIGN SYSTEM
+   ============================================ */
+:root {
+  /* Core palette — dark luxury + gold */
+  --background:          #0d0d0d;
+  --foreground:          #f0ead6;
+  --surface:             #161616;
+  --surface-elevated:    #1e1e1e;
+
+  /* Gold accent system */
+  --gold-light:          #f5d97a;
+  --gold-mid:            #c8922a;
+  --gold-dark:           #8B6010;
+  --gold-gradient:       linear-gradient(135deg, #f5d97a 0%, #c8922a 50%, #8B6010 100%);
+
+  /* Mapped tokens */
+  --primary:             #c8922a;
+  --primary-foreground:  #0d0d0d;
+  --border:              #2a2a2a;
+  --muted:               #1a1a1a;
+  --muted-foreground:    #7a7060;
+}
+
+@theme inline {
+  --color-background:         var(--background);
+  --color-foreground:         var(--foreground);
+  --color-primary:            var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-border:             var(--border);
+  --color-muted:              var(--muted);
+  --color-muted-foreground:   var(--muted-foreground);
+  --color-surface:            var(--surface);
+
+  --font-sans:  'Inter', sans-serif;
+  --font-serif: 'Playfair Display', serif;
+  --font-mono:  monospace;
+}
+
+/* ============================================
+   BASE STYLES
+   ============================================ */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ============================================
+   GOLD TEXT UTILITY
+   ============================================ */
+.text-gold {
+  background: var(--gold-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ============================================
+   GOLD BUTTONS
+   ============================================ */
+.btn-gold {
+  background: var(--gold-gradient);
+  color: #0d0d0d;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 14px 36px;
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  display: inline-block;
+}
+.btn-gold:hover {
+  opacity: 0.85;
+  transform: translateY(-1px);
+}
+
+.btn-outline-gold {
+  background: transparent;
+  color: var(--gold-mid);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 13px 36px;
+  border: 1px solid var(--gold-mid);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-block;
+}
+.btn-outline-gold:hover {
+  background: var(--gold-gradient);
+  color: #0d0d0d;
+  border-color: transparent;
+}
+
+/* ============================================
+   SCROLLBAR STYLING
+   ============================================ */
+::-webkit-scrollbar        { width: 6px; }
+::-webkit-scrollbar-track  { background: var(--background); }
+::-webkit-scrollbar-thumb  { background: #2a2a2a; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--gold-dark); }
+
+/* ============================================
+   HIDE SCROLLBAR UTILITY
+   ============================================ */
+.hide-scrollbar::-webkit-scrollbar { display: none; }
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* ============================================
+   ANIMATIONS
+   ============================================ */
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position:  200% center; }
+}
+
+.gold-shimmer {
+  background: linear-gradient(90deg, #8B6010 25%, #f5d97a 50%, #8B6010 75%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 3s linear infinite;
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-in-up {
+  animation: fadeInUp 0.7s ease forwards;
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* CSS-only hover links — replaces JS onMouseEnter handlers */
+.vv-nav-link {
+  color: #4a4030;
+  transition: color 0.2s ease;
+}
+.vv-nav-link:hover {
+  color: #c8922a;
+}
+
+.vv-gold-link {
+  color: #c8922a;
+  transition: opacity 0.2s ease;
+}
+.vv-gold-link:hover {
+  opacity: 0.7;
+}
+
+.vv-footer-link {
+  color: #5a4a30;
+  font-size: 0.875rem;
+  transition: color 0.2s ease;
+  display: block;
+}
+.vv-footer-link:hover {
+  color: #f0ead6;
+}
+
+/* Marquee animation track */
+.marquee-track {
+  display: flex;
+  animation: marquee 25s linear infinite;
+  width: max-content;
+}
