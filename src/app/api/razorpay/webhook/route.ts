@@ -2,10 +2,15 @@ import { NextResponse } from 'next/server';
 import crypto from 'crypto';
 import { createClient } from '@supabase/supabase-js';
 
-const supabaseAdmin = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-);
+const getSupabaseAdmin = () => {
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  if (!url || !key) {
+    console.warn('Supabase Admin keys missing during build/init.');
+    return null;
+  }
+  return createClient(url, key);
+};
 
 export async function POST(req: Request) {
   try {
@@ -29,6 +34,9 @@ export async function POST(req: Request) {
       const paymentData = event.payload.payment.entity;
       const razorpayOrderId = paymentData.order_id;
       const quantity = parseInt(paymentData.notes.quantity || "1", 10);
+
+      const supabaseAdmin = getSupabaseAdmin();
+      if (!supabaseAdmin) return NextResponse.json({ error: "Configuration missing" }, { status: 500 });
 
       // Check DB State
       const { data: order } = await supabaseAdmin
